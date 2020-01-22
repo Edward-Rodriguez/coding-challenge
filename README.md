@@ -1,5 +1,7 @@
 #  Optional Exercise: Javascript Logic
-## What is the Challenge?
+## What is the Challenge?  
+### The Complete Web Developer In 2020: Zero To Mastery
+### Section 13: Advanced Javascript  
 Solve the below 3 javascript puzzles. The goal of this challenge is to practice our logic skills.  
 Something that is useful not only in interviews when you get challenging problems, but also in your  
 day to day work as a developer. First, start off by reading this article:   
