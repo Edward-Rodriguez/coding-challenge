@@ -4,28 +4,19 @@
 const util = require('util');
 
 const array = [1, 2, 4, 59, 39, 31, 2, 5, 10, 2, 1, 1, 1, 20, 20];
-const target = 24;
 
-// [1, 1, 2, 4, 5, 6, 7]
-const sortedArray = array.sort((a, b) => a - b);
-console.log(util.inspect(sortedArray, { maxArrayLength: null }));
-
-const binarySearch = (array, target) => {
-  let start = 0;
-  let end = array.length - 1;
-
-  while (start <= end) {
-    let mid = Math.floor((start + end) / 2);
-    if (target === array[mid]) return mid;
-    else if (target < array[mid]) {
-      end = mid - 1;
-    } else start = mid + 1;
-  }
-  return false;
+// return sorted array up to value <= target
+const sortedSubArray = (array, target) => {
+  return array
+    .sort((a, b) => a - b)
+    .slice(
+      0,
+      array.findIndex(element => element > target)
+    );
+  // find index of element that is greater than target value and slice
 };
 
-let test = binarySearch(sortedArray, 5);
-
+// return pair of values that when added = target
 const findPairs = (array, targetValue) => {
   let i = 0;
   let length = array.length;
@@ -39,9 +30,8 @@ const findPairs = (array, targetValue) => {
 };
 
 const answer = (array, target) => {
-  return array
-    .sort((a, b) => a - b)
-    .slice(0, array.findIndex(element => element > 1) - 1).
-  // find index of element that is greater than target value and slice
+  const subArray = sortedSubArray(array, target);
+  return findPairs(subArray, target);
 };
-console.log(findPairs(sortedArray, 90));
+
+console.log(util.inspect(answer(array, 49), { maxArrayLength: null }));
