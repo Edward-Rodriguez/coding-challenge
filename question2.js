@@ -34,4 +34,23 @@ const answer = (array, target) => {
   return findPairs(subArray, target);
 };
 
-console.log(util.inspect(answer(array, 49), { maxArrayLength: null }));
+//console.log(util.inspect(answer(array, 49), { maxArrayLength: null }));
+
+// METHOD 2 - using object to retrieve/store values of array
+//const array = [1, 2, 4, 59, 39, 31, 2, 5, 10, 2, 1, 1, 1, 20, 20];
+const answer2 = (array, target) => {
+  const length = array.length;
+  let obj = {};
+  for (let index = 0; index < length; index++) {
+    let currVal = array[index];
+    if (currVal <= target) {
+      let temp = target - currVal;
+      if (temp in obj) {
+        return [temp, currVal];
+      } else obj[currVal] = index;
+    }
+  }
+  return false;
+};
+
+console.log(util.inspect(answer2(array, 0), { maxArrayLength: null }));
