@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program Mac",
-      "program": "${workspaceFolder}/question2.js",
+      "program": "${workspaceFolder}/question3.js",
       "skipFiles": ["<node_internals>/**"],
       "runtimeExecutable": "/usr/local/bin/node"
     },
