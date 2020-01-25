@@ -28,17 +28,40 @@ let hexDecValues = {
   F: 15
 };
 
+// return true if input is a valid hex value
 let isValidHex = hex => {
-  if (hex.length != 6) return false;
+  hex = hex.toString().toUpperCase();
+  if (hex.length != 6) {
+    return false;
+  }
   for (val of hex) {
     if (!(val in hexDecValues)) return false;
   }
   return true;
 };
 
-//#C8C9C7
-const hexToDecimal = hex => {
-  hex = hex.toUpperCase();
+// return true if input has valid rgb values
+const isRgbValid = args => {
+  if (args.length != 3) return false;
+  const red = args[0];
+  const green = args[1];
+  const blue = args[2];
+  if (
+    red < 0 ||
+    red > 255 ||
+    green < 0 ||
+    green > 255 ||
+    blue < 0 ||
+    blue > 255
+  ) {
+    return false;
+  }
+  return true;
+};
+
+// convert color hex value to rgb value
+const hexToRgbConverter = hex => {
+  hex = hex.toString().toUpperCase();
   if (!isValidHex(hex)) return false;
   let rr = 0;
   let gg = 0;
@@ -68,33 +91,30 @@ const hexToDecimal = hex => {
   return `rgb(${rr}, ${gg}, ${bb})`;
 };
 
-let rgbToHex = rgb => {};
-
-console.log(hexToDecimal('Cccccc'));
-
-const isRgbValid = (red, green, blue) => {
-  if (
-    red < 0 ||
-    red > 255 ||
-    green < 0 ||
-    green > 255 ||
-    blue < 0 ||
-    blue > 255
-  ) {
-    return false;
-  }
-  return true;
-};
-
-const rgbToHexConverter = (red, blue, green) => {
-  if (!isRgbValid(red, green, blue)) return false;
+// convert rgb value to equivalent hex value
+const rgbToHexConverter = args => {
+  if (!isRgbValid(args)) return false;
+  const red = args[0];
+  const green = args[1];
+  const blue = args[2];
   let hex = hexDecValues[Math.floor(red / 16)];
   hex += '' + hexDecValues[red % 16];
-  hex += '' + hexDecValues[Math.floor(blue / 16)];
-  hex += '' + hexDecValues[blue % 16];
   hex += '' + hexDecValues[Math.floor(green / 16)];
   hex += '' + hexDecValues[green % 16];
+  hex += '' + hexDecValues[Math.floor(blue / 16)];
+  hex += '' + hexDecValues[blue % 16];
   return hex;
 };
 
-console.log(rgbToHexConverter(99, 200, 201));
+// auto-detect input and convert
+let convert = (...args) => {
+  if (isRgbValid(args)) {
+    return rgbToHexConverter(args);
+  } else if (isValidHex(args)) {
+    return hexToRgbConverter(args);
+  } else {
+    return false;
+  }
+};
+
+console.log(convert('4f312f'));
